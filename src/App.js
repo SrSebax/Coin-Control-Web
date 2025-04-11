@@ -1,8 +1,6 @@
 import React from "react";
-import LoginPage from "./view/LoginView";
+import AppRoutes from "./routes/AppRoutes";
 
-function App() {
-  return <LoginPage />;
+export default function App() {
+  return <AppRoutes />;
 }
-
-export default App;
