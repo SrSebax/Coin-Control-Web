@@ -1,4 +1,3 @@
-import React from "react";
 import {
   Dialog,
   DialogTitle,
@@ -10,9 +9,11 @@ import {
 import { signOut } from "firebase/auth";
 import { auth } from "../services/firebase";
 import { useNavigate } from "react-router-dom";
+import { useThemeMode } from "../context/ThemeContext";
 
 export default function LogoutDialogComponent({ open, onClose }) {
   const navigate = useNavigate();
+  const { theme } = useThemeMode();
 
   const handleLogout = async () => {
     await signOut(auth);
@@ -21,10 +22,19 @@ export default function LogoutDialogComponent({ open, onClose }) {
   };
 
   return (
-    <Dialog open={open} onClose={onClose}>
+    <Dialog
+      open={open}
+      onClose={onClose}
+      PaperProps={{
+        sx: {
+          backgroundColor: theme.dialogBackground,
+          color: theme.text,
+        },
+      }}
+    >
       <DialogTitle>¿Deseas cerrar sesión?</DialogTitle>
       <DialogContent>
-        <DialogContentText>
+        <DialogContentText sx={{ color: theme.text }}>
           Se cerrará tu sesión actual y regresarás al inicio.
         </DialogContentText>
       </DialogContent>
@@ -35,10 +45,10 @@ export default function LogoutDialogComponent({ open, onClose }) {
         <Button
           onClick={handleLogout}
           sx={{
-            color: "#e63946",
+            color: theme.danger,
             fontWeight: "bold",
             "&:hover": {
-              backgroundColor: "#e63946",
+              backgroundColor: theme.danger,
               color: "#fff",
             },
           }}
