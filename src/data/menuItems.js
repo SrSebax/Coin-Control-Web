@@ -1,12 +1,37 @@
-import { Dashboard, Savings } from "@mui/icons-material";
+import {
+  HomeRounded,
+  SavingsRounded,
+  CategoryRounded,
+  BarChartRounded,
+  Dashboard,
+} from "@mui/icons-material";
 import React from "react";
 
 const menuItems = [
-  { text: "Resumen", icon: <Dashboard fontSize="large" />, path: "/home" },
+  {
+    text: "Inicio",
+    icon: <HomeRounded fontSize="large" />,
+    path: "/home",
+  },
+  {
+    text: "Resumen",
+    icon: <Dashboard fontSize="large" />,
+    path: "/home/resumen",
+  },
+  {
+    text: "Gráfico",
+    icon: <BarChartRounded fontSize="large" />,
+    path: "/home/grafico",
+  },
   {
     text: "Ahorros",
-    icon: <Savings fontSize="large" />,
+    icon: <SavingsRounded fontSize="large" />,
     path: "/home/ahorros",
+  },
+  {
+    text: "Categorías",
+    icon: <CategoryRounded fontSize="large" />,
+    path: "/home/categorias",
   },
 ];
 

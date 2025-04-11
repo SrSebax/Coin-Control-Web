@@ -2,27 +2,18 @@ import React from "react";
 import {
   Box,
   IconButton,
-  Typography,
-  Avatar,
   Tooltip,
 } from "@mui/material";
 import { ExitToApp } from "@mui/icons-material";
 import { useThemeMode } from "../context/ThemeContext";
 import logoLight from "../assets/coin-control-dark.svg";
 import logoDark from "../assets/coin-control-light.svg";
-import { auth } from "../services/firebase";
+import UserInfoComponent from "./UserInfoComponent";
 
 export default function NavbarComponent({ onLogoutClick }) {
   const { theme, mode } = useThemeMode();
-  const user = auth.currentUser;
 
-  const displayName = user?.displayName || user?.email || "Usuario";
-  const initials = displayName
-    .split(" ")
-    .map((word) => word[0])
-    .slice(0, 2)
-    .join("")
-    .toUpperCase();
+
 
   return (
     <Box
@@ -51,34 +42,7 @@ export default function NavbarComponent({ onLogoutClick }) {
       </Box>
 
       <Box display="flex" alignItems="center" gap={2}>
-        <Box display="flex" alignItems="center" gap={1}>
-          <Avatar
-            sx={{
-              width: 32,
-              height: 32,
-              fontSize: "0.85rem",
-              bgcolor: theme.primary,
-              color: "#fff",
-              fontWeight: 500,
-            }}
-          >
-            {initials}
-          </Avatar>
-          <Typography
-            variant="body2"
-            sx={{
-              color: theme.text,
-              fontWeight: 500,
-              fontSize: "0.9rem",
-              maxWidth: 160,
-              overflow: "hidden",
-              textOverflow: "ellipsis",
-              whiteSpace: "nowrap",
-            }}
-          >
-            {displayName}
-          </Typography>
-        </Box>
+        <UserInfoComponent />
 
         <Tooltip title="Cerrar sesión" arrow>
           <IconButton
@@ -89,7 +53,7 @@ export default function NavbarComponent({ onLogoutClick }) {
             <ExitToApp fontSize="medium" />
           </IconButton>
         </Tooltip>
+        </Box>    
       </Box>
-    </Box>
   );
 }

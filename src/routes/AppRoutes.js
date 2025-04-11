@@ -6,6 +6,9 @@ import { auth } from "../services/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import ResumenView from "../view/ResumenView";
 import AhorrosView from "../view/AhorrosView";
+import CategoriasView from "../view/CategoriasView";
+import GraficoView from "../view/GraficoView";
+import GastosView from "../view/GastosView";
 
 export default function AppRoutes() {
   const [user, setUser] = useState(null);
@@ -34,8 +37,11 @@ export default function AppRoutes() {
 
         {user && (
           <Route path="/home" element={<HomeView />}>
-            <Route index element={<ResumenView />} />
+            <Route index element={<GastosView />} />
+            <Route path="resumen" element={<ResumenView />} />
             <Route path="ahorros" element={<AhorrosView />} />
+            <Route path="categorias" element={<CategoriasView />} />
+            <Route path="grafico" element={<GraficoView />} />
           </Route>
         )}
 

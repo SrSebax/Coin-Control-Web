@@ -8,7 +8,7 @@ import {
   Tooltip,
   IconButton,
 } from "@mui/material";
-import { Brightness7, Brightness4, LightMode, DarkMode } from "@mui/icons-material";
+import { LightMode, DarkMode } from "@mui/icons-material";
 import { useNavigate, useLocation } from "react-router-dom";
 import LogoutDialogComponent from "./LogoutDialogComponent";
 import { useThemeMode } from "../context/ThemeContext";

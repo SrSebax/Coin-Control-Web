@@ -32,6 +32,7 @@ export default function LoginView() {
         width: "100vw",
         background: "linear-gradient(135deg, #1e1e2f 0%, #2a2a40 100%)",
         display: "flex",
+        flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
         px: 2,
@@ -173,6 +174,19 @@ export default function LoginView() {
           </Button>
         </Stack>
       </Paper>
+
+      <Typography
+        variant="body2"
+        sx={{
+          mt: 4,
+          color: "#ccc",
+          textAlign: "center",
+          fontSize: "0.9rem",
+        }}
+      >
+        Desarrollado por <strong style={{ color: "#00bfa5" }}>Sebastian Londoño 🧑‍💻</strong> &nbsp;|&nbsp;
+        Diseñado por <strong style={{ color: "#00bfa5" }}>Ana Naranjo 🎨</strong>
+      </Typography>
     </Box>
   );
 }
