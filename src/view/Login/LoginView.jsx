@@ -9,8 +9,8 @@ import {
   Stack,
 } from "@mui/material";
 import GoogleIcon from "@mui/icons-material/Google";
-import { useLoginController } from "../controllers/LoginController";
-import AlertMessageComponent from "../components/AlertMessageComponent";
+import { useLoginController } from "../../controllers/LoginController";
+import AlertMessageComponent from "../../components/AlertMessageComponent";
 
 export default function LoginView() {
   const {

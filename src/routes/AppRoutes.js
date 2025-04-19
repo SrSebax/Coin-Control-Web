@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import LoginView from "../view/LoginView";
-import HomeView from "../view/HomeView";
 import { auth } from "../services/firebase";
 import { onAuthStateChanged } from "firebase/auth";
+import HomeView from "../view/HomeView";
 import ResumenView from "../view/ResumenView";
 import AhorrosView from "../view/AhorrosView";
-import CategoriasView from "../view/CategoriasView";
 import GraficoView from "../view/GraficoView";
-import GastosView from "../view/GastosView";
+import LoginView from "../view/Login/LoginView";
+import GastosView from "../view/Gastos/GastosView";
+import CategoriasView from "../view/Categoria/CategoriasView";
 
 export default function AppRoutes() {
   const [user, setUser] = useState(null);

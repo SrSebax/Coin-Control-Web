@@ -22,8 +22,8 @@ export default function HomeView() {
         sx={{
           flexGrow: 1,
           p: 4,
-          mt: "54px", // espacio del navbar
-          ml: "16px", // ancho del sidebar
+          mt: "54px", 
+          ml: "16px", 
           color: theme.text,
         }}
       >
