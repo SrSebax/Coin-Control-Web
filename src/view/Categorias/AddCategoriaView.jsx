@@ -13,6 +13,11 @@ import DynamicDialogComponent from "../../components/DynamicDialogComponent";
 import { useThemeMode } from "../../context/ThemeContext";
 import IconPickerComponent from "../../components/Categoria/IconPickerComponent";
 import CustomSelectComponent from "../../components/CustomSelectComponent";
+import {
+  isFormValid,
+  handleConfirmGuardar,
+  handleConfirmCancel,
+} from "../../controllers/CategoriaController";
 
 export default function AddCategoriaView() {
   const [nombre, setNombre] = useState("");
@@ -27,41 +32,13 @@ export default function AddCategoriaView() {
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
   const navigate = useNavigate();
 
-  const isFormValid = () => {
-    return nombre !== "" && tipo !== "" && icono !== null && selectedColor;
-  };
-
-  const handleConfirmGuardar = () => {
-    const categoriaData = {
-      nombre: nombre,
-      tipo: tipo === "otro" ? nuevoTipo : tipo,
-      gastoProgramado: monto ? monto : null,
-      icono: icono,
-      color: selectedColor,
-      frecuencia: frecuencia,
-    };
-
-    console.log(
-      "Datos de la categoría:",
-      JSON.stringify(categoriaData, null, 2)
-    );
-
-    setOpenConfirmDialog(false);
-    navigate("/categorias");
-  };
-
-  const handleConfirmCancel = () => {
-    setOpenDialog(false);
-    navigate("/categorias");
-  };
-
   const cancelActions = (
     <>
       <Button onClick={() => setOpenDialog(false)} sx={{ color: theme.text }}>
         No, volver
       </Button>
       <Button
-        onClick={handleConfirmCancel}
+        onClick={() => handleConfirmCancel(navigate, setOpenDialog)}
         sx={{
           color: theme.danger,
           fontWeight: "bold",
@@ -85,7 +62,12 @@ export default function AddCategoriaView() {
         No, volver
       </Button>
       <Button
-        onClick={handleConfirmGuardar}
+        onClick={() =>
+          handleConfirmGuardar(
+            { nombre, tipo, nuevoTipo, monto, icono, color: selectedColor, frecuencia },
+            navigate
+          )
+        }
         sx={{
           color: theme.primary,
           fontWeight: "bold",
@@ -179,7 +161,7 @@ export default function AddCategoriaView() {
           >
             <PrimaryButtonComponent
               onClick={() => setOpenConfirmDialog(true)}
-              disabled={!isFormValid()}
+              disabled={!isFormValid({ nombre, tipo, icono, color: selectedColor })}
             >
               Guardar
             </PrimaryButtonComponent>
@@ -190,7 +172,6 @@ export default function AddCategoriaView() {
         </Box>
       </Paper>
 
-      {/* Diálogo de confirmación al cancelar */}
       <DynamicDialogComponent
         open={openDialog}
         onClose={() => setOpenDialog(false)}
@@ -199,7 +180,6 @@ export default function AddCategoriaView() {
         actions={cancelActions}
       />
 
-      {/* Diálogo de confirmación al guardar */}
       <DynamicDialogComponent
         open={openConfirmDialog}
         onClose={() => setOpenConfirmDialog(false)}
