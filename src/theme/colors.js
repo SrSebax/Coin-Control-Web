@@ -3,6 +3,8 @@ export const lightTheme = {
   sidebar: "#ffffff",           // fondo del sidebar
   sidebarBorder: "#e5e7eb",     // borde sidebar
   text: "#111827",              // texto general
+  textSecondary: "#374151",     // texto secundario
+  textTertiary: "#6b7280",      // texto terciario
   primary: "#48a99e",           // color principal / botones
   hover: "#e5e7eb",             // hover
   divider: "#d1d5db",           // línea divisora
@@ -11,6 +13,8 @@ export const lightTheme = {
   dialogBackground: "#ffffff", // fondo de diálogos
   danger: "#ef4444",            // botón de peligro
   success: "#00a86a",           // para confirmaciones u OK
+  textButton: "#e5e7eb",       // texto de botones
+  icon: "#737D8EFF",            // color de iconos
 };
 
 export const darkTheme = {
@@ -18,6 +22,8 @@ export const darkTheme = {
   sidebar: "#111827",           // sidebar mismo color
   sidebarBorder: "#1f2937",     // borde sidebar
   text: "#f3f3f5",              // texto claro
+  textSecondary: "#e5e7eb",     // texto secundario
+  textTertiary: "#9ca3af",      // texto terciario
   primary: "#48a99e",           // color principal / botones
   hover: "#1f2937",             // hover
   divider: "#374151",           // línea divisora
@@ -26,4 +32,6 @@ export const darkTheme = {
   dialogBackground: "#1f2937",  // fondo de diálogos
   danger: "#ef4444",            // botón de peligro
   success: "#00a86a",           // para confirmaciones u OK
+  textButton: "#e5e7eb",       // texto de botones
+  icon: "#f3f3f5",              // color de iconos
 };

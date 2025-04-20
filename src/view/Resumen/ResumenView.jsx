@@ -1,9 +1,9 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
-import { useThemeMode } from "../context/ThemeContext";
-import BalanceCard from "../components/Resumen/BalanceCard";
-import GastosPorCategoria from "../components/Resumen/GastosPorCategoria";
-import UltimosMovimientos from "../components/Resumen/UltimosMovimientos";
+import { useThemeMode } from "../../context/ThemeContext";
+import BalanceCard from "../../components/Resumen/BalanceCard";
+import GastosPorCategoria from "../../components/Resumen/GastosPorCategoria";
+import UltimosMovimientos from "../../components/Resumen/UltimosMovimientos";
 
 export default function ResumenView() {
   const { theme } = useThemeMode();

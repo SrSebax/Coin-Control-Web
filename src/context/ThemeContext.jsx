@@ -1,4 +1,3 @@
-// src/context/ThemeContext.jsx
 import React, { createContext, useContext, useState, useMemo, useEffect } from "react";
 import { darkTheme, lightTheme } from "../theme/colors";
 
@@ -9,7 +8,6 @@ export const useThemeMode = () => useContext(ThemeContext);
 export const ThemeProvider = ({ children }) => {
   const [mode, setMode] = useState("dark");
 
-  // opcional: guardar en localStorage
   useEffect(() => {
     const savedMode = localStorage.getItem("theme");
     if (savedMode) setMode(savedMode);

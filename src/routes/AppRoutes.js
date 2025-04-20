@@ -3,12 +3,12 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { auth } from "../services/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import HomeView from "../view/HomeView";
-import ResumenView from "../view/ResumenView";
-import AhorrosView from "../view/AhorrosView";
-import GraficoView from "../view/GraficoView";
+import ResumenView from "../view/Resumen/ResumenView";
+import AhorrosView from "../view/Ahorros/AhorrosView";
+import GraficoView from "../view/Graficos/GraficoView";
 import LoginView from "../view/Login/LoginView";
 import GastosView from "../view/Gastos/GastosView";
-import CategoriasView from "../view/Categoria/CategoriasView";
+import CategoriasView from "../view/Categorias/CategoriasView";
 
 export default function AppRoutes() {
   const [user, setUser] = useState(null);
