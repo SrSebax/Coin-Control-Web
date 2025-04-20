@@ -17,6 +17,7 @@ import CustomSelectComponent from "../../components/CustomSelectComponent";
 export default function AddCategoriaView() {
   const [nombre, setNombre] = useState("");
   const [tipo, setTipo] = useState("");
+  const [nuevoTipo, setNuevoTipo] = useState("");
   const [monto, setMonto] = useState("");
   const [icono, setIcono] = useState(null);
   const { theme } = useThemeMode();
@@ -33,7 +34,7 @@ export default function AddCategoriaView() {
   const handleConfirmGuardar = () => {
     const categoriaData = {
       nombre: nombre,
-      tipo: tipo,
+      tipo: tipo === "otro" ? nuevoTipo : tipo,
       gastoProgramado: monto ? monto : null,
       icono: icono,
       color: selectedColor,
@@ -77,7 +78,10 @@ export default function AddCategoriaView() {
 
   const guardarActions = (
     <>
-      <Button onClick={() => setOpenConfirmDialog(false)} sx={{ color: theme.text }}>
+      <Button
+        onClick={() => setOpenConfirmDialog(false)}
+        sx={{ color: theme.text }}
+      >
         No, volver
       </Button>
       <Button
@@ -124,8 +128,18 @@ export default function AddCategoriaView() {
               { label: "Ingreso", value: "ingreso" },
               { label: "Ahorro", value: "ahorro" },
               { label: "Inversión", value: "inversion" },
+              { label: "Otro", value: "otro" },
             ]}
           />
+
+          {tipo === "otro" && (
+            <CustomInputComponent
+              label="Especifica el tipo de categoría"
+              value={nuevoTipo}
+              onChange={(e) => setNuevoTipo(e.target.value)}
+              sx={{ mb: 2 }}
+            />
+          )}
 
           <Box display="flex" gap={2}>
             <CurrencyInputComponent
