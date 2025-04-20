@@ -1,11 +1,9 @@
 import { Paper, Box, Button } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-
 import CustomTitleComponent from "../../components/CustomTitleComponent";
 import CustomTextComponent from "../../components/CustomTextComponent";
 import CustomInputComponent from "../../components/CustomInputComponent";
-import CustomSelectComponent from "../../components/CustomSelectComponent";
 import CustomRadioGroupComponent from "../../components/CustomRadioGroupComponent";
 import CurrencyInputComponent from "../../components/CurrencyInputComponent";
 import PrimaryButtonComponent from "../../components/PrimaryButtonComponent";
@@ -13,24 +11,42 @@ import SecondaryButtonComponent from "../../components/SecondaryButtonComponent"
 import BackButtonComponent from "../../components/BackButtonComponent";
 import DynamicDialogComponent from "../../components/DynamicDialogComponent";
 import { useThemeMode } from "../../context/ThemeContext";
+import IconPickerComponent from "../../components/Categoria/IconPickerComponent";
+import CustomSelectComponent from "../../components/CustomSelectComponent";
 
 export default function AddCategoriaView() {
   const [nombre, setNombre] = useState("");
-  const [tipo, setTipo] = useState("gasto");
-  const [categoria, setCategoria] = useState("");
+  const [tipo, setTipo] = useState("");
   const [monto, setMonto] = useState("");
-
-  const [openDialog, setOpenDialog] = useState(false);
-  const navigate = useNavigate();
+  const [icono, setIcono] = useState(null);
   const { theme } = useThemeMode();
+  const [selectedColor, setSelectedColor] = useState(theme.primary);
+  const [frecuencia, setFrecuencia] = useState("");
+  const [openDialog, setOpenDialog] = useState(false);
+  const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
+  const navigate = useNavigate();
 
-  const handleGuardar = () => {
-    console.log({
-      nombre,
-      tipo,
-      categoria,
-      monto,
-    });
+  const isFormValid = () => {
+    return nombre !== "" && tipo !== "" && icono !== null && selectedColor;
+  };
+
+  const handleConfirmGuardar = () => {
+    const categoriaData = {
+      nombre: nombre,
+      tipo: tipo,
+      gastoProgramado: monto ? monto : null,
+      icono: icono,
+      color: selectedColor,
+      frecuencia: frecuencia,
+    };
+
+    console.log(
+      "Datos de la categoría:",
+      JSON.stringify(categoriaData, null, 2)
+    );
+
+    setOpenConfirmDialog(false);
+    navigate("/categorias");
   };
 
   const handleConfirmCancel = () => {
@@ -59,6 +75,27 @@ export default function AddCategoriaView() {
     </>
   );
 
+  const guardarActions = (
+    <>
+      <Button onClick={() => setOpenConfirmDialog(false)} sx={{ color: theme.text }}>
+        No, volver
+      </Button>
+      <Button
+        onClick={handleConfirmGuardar}
+        sx={{
+          color: theme.primary,
+          fontWeight: "bold",
+          "&:hover": {
+            backgroundColor: theme.primary,
+            color: "#fff",
+          },
+        }}
+      >
+        Sí, guardar
+      </Button>
+    </>
+  );
+
   return (
     <>
       <Paper sx={{ p: 4, backgroundColor: "rgba(255,255,255,0.05)" }}>
@@ -71,38 +108,53 @@ export default function AddCategoriaView() {
           Completa el formulario para añadir una nueva categoría.
         </CustomTextComponent>
 
-        <Box mt={3} display="flex" flexDirection="column" gap={3}>
-          <Box display="flex" alignItems="center" gap={2}>
-            <CustomInputComponent
-              label="Nombre"
-              value={nombre}
-              onChange={(e) => setNombre(e.target.value)}
-            />
-            <CustomSelectComponent
-              label="Categoría"
-              value={categoria}
-              onChange={(e) => setCategoria(e.target.value)}
-              options={[
-                { label: "Salud", value: "salud" },
-                { label: "Casa", value: "casa" },
-                { label: "Ocio", value: "ocio" },
-              ]}
-            />
-          </Box>
+        <Box mt={3} display="flex" flexDirection="column" gap={2}>
+          <CustomInputComponent
+            label="Nombre"
+            value={nombre}
+            onChange={(e) => setNombre(e.target.value)}
+          />
 
           <CustomRadioGroupComponent
+            customText="Tipo de categoría"
             value={tipo}
             onChange={(e) => setTipo(e.target.value)}
             options={[
               { label: "Gasto", value: "gasto" },
               { label: "Ingreso", value: "ingreso" },
+              { label: "Ahorro", value: "ahorro" },
+              { label: "Inversión", value: "inversion" },
             ]}
           />
 
-          <CurrencyInputComponent
-            label="Gasto Programado (COP)"
-            value={monto}
-            onChange={setMonto}
+          <Box display="flex" gap={2}>
+            <CurrencyInputComponent
+              label="Gasto Programado (COP)"
+              value={monto}
+              onChange={setMonto}
+            />
+
+            {monto && (
+              <CustomSelectComponent
+                label="Frecuencia"
+                value={frecuencia}
+                onChange={(e) => setFrecuencia(e.target.value)}
+                options={[
+                  { label: "Diario", value: "diario" },
+                  { label: "Semanal", value: "semanal" },
+                  { label: "Mensual", value: "mensual" },
+                  { label: "Quincenal", value: "quincenal" },
+                  { label: "Anual", value: "anual" },
+                ]}
+              />
+            )}
+          </Box>
+
+          <IconPickerComponent
+            selectedIcon={icono}
+            onIconSelect={setIcono}
+            selectedColor={selectedColor}
+            onColorSelect={setSelectedColor}
           />
 
           <Box
@@ -111,7 +163,10 @@ export default function AddCategoriaView() {
             gap={2}
             justifyContent="flex-end"
           >
-            <PrimaryButtonComponent onClick={handleGuardar}>
+            <PrimaryButtonComponent
+              onClick={() => setOpenConfirmDialog(true)}
+              disabled={!isFormValid()}
+            >
               Guardar
             </PrimaryButtonComponent>
             <SecondaryButtonComponent onClick={() => setOpenDialog(true)}>
@@ -121,12 +176,22 @@ export default function AddCategoriaView() {
         </Box>
       </Paper>
 
+      {/* Diálogo de confirmación al cancelar */}
       <DynamicDialogComponent
         open={openDialog}
         onClose={() => setOpenDialog(false)}
         title="¿Cancelar creación?"
         message="Perderás los cambios que hiciste en el formulario. ¿Seguro que quieres cancelar?"
         actions={cancelActions}
+      />
+
+      {/* Diálogo de confirmación al guardar */}
+      <DynamicDialogComponent
+        open={openConfirmDialog}
+        onClose={() => setOpenConfirmDialog(false)}
+        title="¿Guardar categoría?"
+        message="¿Estás seguro de que quieres guardar esta nueva categoría?"
+        actions={guardarActions}
       />
     </>
   );
