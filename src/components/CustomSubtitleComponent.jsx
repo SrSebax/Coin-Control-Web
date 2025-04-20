@@ -1,6 +1,6 @@
 import { useThemeMode } from "../context/ThemeContext";
 
-const CustomSubtitle = ({ children }) => {
+const CustomSubtitleComponent = ({ children }) => {
   const { theme } = useThemeMode();
 
   return (
@@ -17,4 +17,4 @@ const CustomSubtitle = ({ children }) => {
   );
 };
 
-export default CustomSubtitle;
+export default CustomSubtitleComponent;

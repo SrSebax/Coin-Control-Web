@@ -9,6 +9,7 @@ import GraficoView from "../view/Graficos/GraficoView";
 import LoginView from "../view/Login/LoginView";
 import GastosView from "../view/Gastos/GastosView";
 import CategoriasView from "../view/Categorias/CategoriasView";
+import AddCategoriaView from "../view/Categorias/AddCategoriaView";
 
 export default function AppRoutes() {
   const [user, setUser] = useState(null);
@@ -23,28 +24,35 @@ export default function AppRoutes() {
     return () => unsubscribe();
   }, []);
 
-  if (checkingAuth) {
-    return null;
-  }
+  if (checkingAuth) return null;
 
   return (
     <BrowserRouter>
       <Routes>
+        {/* Ruta raíz: login o redirección */}
         <Route
           path="/"
-          element={user ? <Navigate to="/home" /> : <LoginView />}
+          element={user ? <Navigate to="/gastos" /> : <LoginView />}
         />
 
+        {/* Rutas privadas con layout (sidebar) */}
         {user && (
-          <Route path="/home" element={<HomeView />}>
-            <Route index element={<GastosView />} />
+          <Route path="/" element={<HomeView />}>
+            {/* Gastos */}
+            <Route path="gastos" element={<GastosView />} />
+            {/* Resumen */}
             <Route path="resumen" element={<ResumenView />} />
+            {/* Ahorros */}
             <Route path="ahorros" element={<AhorrosView />} />
+            {/* Categorías */}
             <Route path="categorias" element={<CategoriasView />} />
+            <Route path="categorias/agregar" element={<AddCategoriaView />} />
+            {/* Gráficos */}
             <Route path="grafico" element={<GraficoView />} />
           </Route>
         )}
 
+        {/* Redirección en caso de ruta inválida */}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </BrowserRouter>

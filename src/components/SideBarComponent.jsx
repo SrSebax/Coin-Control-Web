@@ -7,13 +7,16 @@ import {
   Divider,
   Tooltip,
   IconButton,
+  Button,
 } from "@mui/material";
 import { LightMode, DarkMode } from "@mui/icons-material";
 import { useNavigate, useLocation } from "react-router-dom";
-import LogoutDialogComponent from "./LogoutDialogComponent";
 import { useThemeMode } from "../context/ThemeContext";
+import { signOut } from "firebase/auth";
+import { auth } from "../services/firebase";
 import NavbarComponent from "./NavBarComponent";
 import menuItems from "../data/menuItems";
+import DynamicDialogComponent from "./DynamicDialogComponent";
 
 const drawerWidth = 96;
 
@@ -23,6 +26,32 @@ export default function SidebarComponent() {
   const [openDialog, setOpenDialog] = useState(false);
   const { theme, toggleMode, mode } = useThemeMode();
 
+  const handleLogout = async () => {
+    await signOut(auth);
+    setOpenDialog(false);
+    navigate("/");
+  };
+
+  const logoutActions = (
+    <>
+      <Button onClick={() => setOpenDialog(false)} sx={{ color: theme.text }}>
+        Cancelar
+      </Button>
+      <Button
+        onClick={handleLogout}
+        sx={{
+          color: theme.danger,
+          fontWeight: "bold",
+          "&:hover": {
+            backgroundColor: theme.danger,
+            color: "#fff",
+          },
+        }}
+      >
+        Cerrar sesión
+      </Button>
+    </>
+  );
 
   return (
     <>
@@ -46,32 +75,30 @@ export default function SidebarComponent() {
           },
         }}
       >
-
-<Tooltip title="Cambiar tema" arrow placement="right">
-  <IconButton
-    onClick={toggleMode}
-    sx={{
-      color: theme.text,
-      mb: 2,
-      backgroundColor: theme.hover,
-      borderRadius: "50%",
-      "&:hover": {
-        backgroundColor: theme.primary,
-        color: "#fff",
-      },
-    }}
-    aria-label="Cambiar tema"
-  >
-    {mode === "dark" ? <LightMode /> : <DarkMode />}
-  </IconButton>
-</Tooltip>
-
+        <Tooltip title="Cambiar tema" arrow placement="right">
+          <IconButton
+            onClick={toggleMode}
+            sx={{
+              color: theme.text,
+              mb: 2,
+              backgroundColor: theme.hover,
+              borderRadius: "50%",
+              "&:hover": {
+                backgroundColor: theme.primary,
+                color: "#fff",
+              },
+            }}
+            aria-label="Cambiar tema"
+          >
+            {mode === "dark" ? <LightMode /> : <DarkMode />}
+          </IconButton>
+        </Tooltip>
 
         <Divider sx={{ width: "60%", mb: 2, borderColor: theme.divider }} />
 
         <Box sx={{ flexGrow: 1, width: "100%" }}>
           {menuItems.map((item, index) => {
-            const selected = location.pathname === item.path;
+            const selected = location.pathname.startsWith(item.path);
             return (
               <ListItemButton
                 key={index}
@@ -104,9 +131,12 @@ export default function SidebarComponent() {
         </Box>
       </Drawer>
 
-      <LogoutDialogComponent
+      <DynamicDialogComponent
         open={openDialog}
         onClose={() => setOpenDialog(false)}
+        title="¿Deseas cerrar sesión?"
+        message="Se cerrará tu sesión actual y regresarás al inicio."
+        actions={logoutActions}
       />
     </>
   );

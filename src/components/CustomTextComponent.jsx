@@ -1,6 +1,6 @@
 import { useThemeMode } from "../context/ThemeContext";
 
-const CustomText = ({ children, color, size = "1rem" }) => {
+const CustomTextComponent = ({ children, color, size = "1rem" }) => {
   const { theme } = useThemeMode();
 
   return (
@@ -15,4 +15,4 @@ const CustomText = ({ children, color, size = "1rem" }) => {
   );
 };
 
-export default CustomText;
+export default CustomTextComponent;

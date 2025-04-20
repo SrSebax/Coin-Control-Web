@@ -1,7 +1,7 @@
 import { Button } from "@mui/material";
 import { useThemeMode } from "../context/ThemeContext";
 
-export default function PrimaryButton({ children, onClick, ...props }) {
+export default function PrimaryButtonComponent({ children, onClick, ...props }) {
   const { theme } = useThemeMode();
 
   return (

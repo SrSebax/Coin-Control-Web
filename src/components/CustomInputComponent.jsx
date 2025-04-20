@@ -1,7 +1,7 @@
 import { TextField } from "@mui/material";
 import { useThemeMode } from "../context/ThemeContext";
 
-const CustomInput = ({ label, value, onChange, type = "text", placeholder, ...props }) => {
+const CustomInputComponent = ({ label, value, onChange, type = "text", placeholder, ...props }) => {
   const { theme } = useThemeMode();
 
   return (
@@ -42,4 +42,4 @@ const CustomInput = ({ label, value, onChange, type = "text", placeholder, ...pr
   );
 };
 
-export default CustomInput;
+export default CustomInputComponent;

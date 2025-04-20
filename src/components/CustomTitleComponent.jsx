@@ -1,6 +1,6 @@
 import { useThemeMode } from "../context/ThemeContext";
 
-const CustomTitle = ({ children }) => {
+const CustomTitleComponent = ({ children }) => {
   const { theme } = useThemeMode();
 
   return (
@@ -17,4 +17,4 @@ const CustomTitle = ({ children }) => {
   );
 };
 
-export default CustomTitle;
+export default CustomTitleComponent;

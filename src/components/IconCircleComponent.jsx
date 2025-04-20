@@ -2,7 +2,7 @@ import React from "react";
 import { IconButton } from "@mui/material";
 import { useThemeMode } from "../context/ThemeContext";
 
-const IconCircle = ({ icon, size, color, onClick }) => {
+const IconCircleComponent = ({ icon, size, color, onClick }) => {
   const { theme } = useThemeMode();
 
   return (
@@ -33,4 +33,4 @@ const IconCircle = ({ icon, size, color, onClick }) => {
   );
 };
 
-export default IconCircle;
+export default IconCircleComponent;

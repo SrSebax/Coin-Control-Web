@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 import { useThemeMode } from "../context/ThemeContext";
 
-const CustomRadioGroup = ({ label, value, onChange, options = [], row = true, ...props }) => {
+const CustomRadioGroupComponent = ({ label, value, onChange, options = [], row = true, ...props }) => {
   const { theme } = useThemeMode();
 
   return (
@@ -53,4 +53,4 @@ const CustomRadioGroup = ({ label, value, onChange, options = [], row = true, ..
   );
 };
 
-export default CustomRadioGroup;
+export default CustomRadioGroupComponent;

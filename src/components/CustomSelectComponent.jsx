@@ -2,7 +2,7 @@ import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import { useThemeMode } from "../context/ThemeContext";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-const CustomSelect = ({ label, value, onChange, options = [], ...props }) => {
+const CustomSelectComponent = ({ label, value, onChange, options = [], ...props }) => {
   const { theme } = useThemeMode();
 
   return (
@@ -62,4 +62,4 @@ const CustomSelect = ({ label, value, onChange, options = [], ...props }) => {
   );
 };
 
-export default CustomSelect;
+export default CustomSelectComponent;

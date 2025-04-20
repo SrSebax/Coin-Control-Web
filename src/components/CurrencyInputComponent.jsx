@@ -1,7 +1,7 @@
 import { TextField } from '@mui/material';
 import { useThemeMode } from "../context/ThemeContext";
 
-const CurrencyInput = ({ label = 'Monto', value, onChange, ...props }) => {
+const CurrencyInputComponent = ({ label = 'Monto', value, onChange, ...props }) => {
   const { theme } = useThemeMode();
 
   const formatCOP = (val) => {
@@ -59,4 +59,4 @@ const CurrencyInput = ({ label = 'Monto', value, onChange, ...props }) => {
   );
 };
 
-export default CurrencyInput;
+export default CurrencyInputComponent;

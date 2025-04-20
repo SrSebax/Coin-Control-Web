@@ -11,27 +11,27 @@ const menuItems = [
   {
     text: "Inicio",
     icon: <HomeRounded fontSize="large" />,
-    path: "/home",
+    path: "/gastos", // Ahora esta es la página principal
   },
   {
     text: "Resumen",
     icon: <Dashboard fontSize="large" />,
-    path: "/home/resumen",
+    path: "/resumen",
   },
   {
     text: "Gráfico",
     icon: <BarChartRounded fontSize="large" />,
-    path: "/home/grafico",
+    path: "/grafico",
   },
   {
     text: "Ahorros",
     icon: <SavingsRounded fontSize="large" />,
-    path: "/home/ahorros",
+    path: "/ahorros",
   },
   {
     text: "Categorías",
     icon: <CategoryRounded fontSize="large" />,
-    path: "/home/categorias",
+    path: "/categorias",
   },
 ];
 
