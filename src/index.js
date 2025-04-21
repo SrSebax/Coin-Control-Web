@@ -6,6 +6,7 @@ import "./style/index.css";
 import { ThemeProvider } from "./context/ThemeContext";
 import { useMediaQuery, CssBaseline } from "@mui/material";
 import MobileBlockView from "./view/MobileBlockView";
+import { AuthProvider } from "./context/AuthContext";
 
 function RootWrapper() {
   const isMobile = useMediaQuery("(max-width:767px)");
@@ -16,9 +17,11 @@ function RootWrapper() {
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <ThemeProvider>
-      <CssBaseline />
-      <RootWrapper />
-    </ThemeProvider>
+    <AuthProvider>
+      <ThemeProvider>
+        <CssBaseline />
+        <RootWrapper />
+      </ThemeProvider>
+    </AuthProvider>
   </React.StrictMode>
 );

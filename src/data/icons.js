@@ -14,7 +14,6 @@ import {
   Flight,
   Pets,
   MusicNote,
-  SportsSoccer,
   Spa,
   Storefront,
   LocalGasStation,

@@ -1,3 +1,4 @@
+import { useAuth } from "../../context/AuthContext";
 import { Paper, Box, Button } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -20,6 +21,8 @@ import {
 } from "../../controllers/CategoriaController";
 
 export default function AddCategoriaView() {
+  const { user } = useAuth();
+  const userId = user?.uid;
   const [nombre, setNombre] = useState("");
   const [tipo, setTipo] = useState("");
   const [nuevoTipo, setNuevoTipo] = useState("");
@@ -64,7 +67,16 @@ export default function AddCategoriaView() {
       <Button
         onClick={() =>
           handleConfirmGuardar(
-            { nombre, tipo, nuevoTipo, monto, icono, color: selectedColor, frecuencia },
+            {
+              uid: userId,
+              nombre,
+              tipo,
+              nuevoTipo,
+              monto,
+              icono,
+              color: selectedColor,
+              frecuencia,
+            },
             navigate
           )
         }
@@ -161,7 +173,9 @@ export default function AddCategoriaView() {
           >
             <PrimaryButtonComponent
               onClick={() => setOpenConfirmDialog(true)}
-              disabled={!isFormValid({ nombre, tipo, icono, color: selectedColor })}
+              disabled={
+                !isFormValid({ nombre, tipo, icono, color: selectedColor })
+              }
             >
               Guardar
             </PrimaryButtonComponent>
