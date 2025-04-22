@@ -6,14 +6,12 @@ import CustomTitleComponent from "../../components/CustomTitleComponent";
 import CustomTextComponent from "../../components/CustomTextComponent";
 import CustomInputComponent from "../../components/CustomInputComponent";
 import CustomRadioGroupComponent from "../../components/CustomRadioGroupComponent";
-import CurrencyInputComponent from "../../components/CurrencyInputComponent";
 import PrimaryButtonComponent from "../../components/PrimaryButtonComponent";
 import SecondaryButtonComponent from "../../components/SecondaryButtonComponent";
 import BackButtonComponent from "../../components/BackButtonComponent";
 import DynamicDialogComponent from "../../components/DynamicDialogComponent";
 import { useThemeMode } from "../../context/ThemeContext";
 import IconPickerComponent from "../../components/Categoria/IconPickerComponent";
-import CustomSelectComponent from "../../components/CustomSelectComponent";
 import {
   isFormValid,
   handleConfirmGuardar,
@@ -26,11 +24,9 @@ export default function AddCategoriaView() {
   const [nombre, setNombre] = useState("");
   const [tipo, setTipo] = useState("");
   const [nuevoTipo, setNuevoTipo] = useState("");
-  const [monto, setMonto] = useState("");
   const [icono, setIcono] = useState(null);
   const { theme } = useThemeMode();
   const [selectedColor, setSelectedColor] = useState(theme.primary);
-  const [frecuencia, setFrecuencia] = useState("");
   const [openDialog, setOpenDialog] = useState(false);
   const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
   const navigate = useNavigate();
@@ -68,7 +64,7 @@ export default function AddCategoriaView() {
         onClick={() =>
           handleConfirmGuardar(
             {
-              uid: userId,
+              userUid: userId,
               nombre,
               tipo,
               nuevoTipo,

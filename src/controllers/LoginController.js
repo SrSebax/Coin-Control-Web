@@ -6,6 +6,7 @@ import {
 } from "firebase/auth";
 import { auth, googleProvider } from "../services/firebase";
 import { useNavigate } from "react-router-dom";
+import { postAuth } from "../services/ApiServices/postService";
 
 export function useLoginController() {
   const [email, setEmail] = useState("");
@@ -44,7 +45,13 @@ export function useLoginController() {
 
   const loginWithEmail = async () => {
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      // Inicia sesión con email y contraseña
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      // Realiza el postAuth con el UID de Firebase
+      await postAuth({ uid: user.uid });
+
       showAlert("success", "Inicio de sesión exitoso");
       navigate("/home");
     } catch (error) {
@@ -54,7 +61,13 @@ export function useLoginController() {
 
   const registerWithEmail = async () => {
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      // Registra el usuario con email y contraseña
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      // Realiza el postAuth con el UID de Firebase
+      await postAuth({ uid: user.uid });
+
       showAlert("success", "Registro exitoso");
       navigate("/home");
     } catch (error) {
@@ -64,7 +77,13 @@ export function useLoginController() {
 
   const loginWithGoogle = async () => {
     try {
-      await signInWithPopup(auth, googleProvider);
+      // Inicia sesión con Google
+      const userCredential = await signInWithPopup(auth, googleProvider);
+      const user = userCredential.user;
+
+      // Realiza el postAuth con el UID de Firebase
+      await postAuth({ uid: user.uid });
+
       showAlert("success", "Inicio de sesión con Google exitoso");
       navigate("/home");
     } catch (error) {

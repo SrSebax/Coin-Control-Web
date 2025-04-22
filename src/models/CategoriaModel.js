@@ -1,5 +1,5 @@
 export function categoriaModel({
-  uid,
+  userUid,
   nombre,
   tipo,
   nuevoTipo,
@@ -7,7 +7,7 @@ export function categoriaModel({
   color,
 }) {
   return {
-    uid,
+    userUid,
     nombre: nombre,
     tipo: tipo === "otro" ? nuevoTipo : tipo,
     icono,
