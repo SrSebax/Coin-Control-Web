@@ -72,10 +72,8 @@ export default function AddCategoriaView() {
               nombre,
               tipo,
               nuevoTipo,
-              monto,
               icono,
               color: selectedColor,
-              frecuencia,
             },
             navigate
           )
@@ -134,29 +132,6 @@ export default function AddCategoriaView() {
               sx={{ mb: 2 }}
             />
           )}
-
-          <Box display="flex" gap={2}>
-            <CurrencyInputComponent
-              label="Gasto Programado (COP)"
-              value={monto}
-              onChange={setMonto}
-            />
-
-            {monto && (
-              <CustomSelectComponent
-                label="Frecuencia"
-                value={frecuencia}
-                onChange={(e) => setFrecuencia(e.target.value)}
-                options={[
-                  { label: "Diario", value: "diario" },
-                  { label: "Semanal", value: "semanal" },
-                  { label: "Mensual", value: "mensual" },
-                  { label: "Quincenal", value: "quincenal" },
-                  { label: "Anual", value: "anual" },
-                ]}
-              />
-            )}
-          </Box>
 
           <IconPickerComponent
             selectedIcon={icono}
